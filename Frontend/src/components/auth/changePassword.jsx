@@ -22,8 +22,8 @@ const ChangePassword = ({ email }) => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_APP_API_URL}/users/changePassword`,
+        await fetch(
+          `${import.meta.env.VITE_APP_API_URL}/api/users/changePassword`,
           {
             method: "POST",
             headers: {
@@ -35,10 +35,6 @@ const ChangePassword = ({ email }) => {
             }),
           }
         );
-
-        if (!response.ok) {
-          throw new Error("Error al cambiar la contraseña");
-        }
 
         toast.success(
           "Contraseña cambiada exitosamente, vuelva a iniciar sesión"

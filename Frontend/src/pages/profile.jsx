@@ -69,8 +69,8 @@ const Profile = () => {
 
   const handleConfirmDeleteAccount = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/users/deleteAccount",
+      await fetch(
+        `${import.meta.env.VITE_APP_API_URL}/api/users/deleteAccount`,
         {
           method: "DELETE",
           headers: {
@@ -78,9 +78,6 @@ const Profile = () => {
           },
         }
       );
-      if (!response.ok) {
-        throw new Error("Failed to delete account");
-      }
       toast.success("Cuenta eliminada exitosamente");
       clearToken();
     } catch (error) {
