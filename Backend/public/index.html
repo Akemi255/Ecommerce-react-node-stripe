@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-commerce API</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f8f8;
+        color: #333;
+      }
+
+      header {
+        background-color: #007bff;
+        color: #fff;
+        padding: 20px 0;
+      }
+
+      header h1 {
+        font-size: 24px;
+      }
+
+      header nav ul {
+        list-style: none;
+      }
+
+      header nav ul li {
+        display: inline;
+        margin-right: 20px;
+      }
+
+      header nav ul li a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      #hero {
+        padding: 100px 0;
+        text-align: center;
+      }
+
+      #hero h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .product-card {
+        width: calc(33.33% - 20px);
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      .product-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>E-commerce API</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Inicio</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <h1>Listado de Productos</h1>
+      <div id="products"></div>
+    </div>
+
+    <br />
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 E-commerce API</p>
+      </div>
+    </footer>
+    <script>
+      // Realizar la solicitud a la API de productos
+      fetch("http://localhost:3000/api/products")
+        .then((response) => response.json())
+        .then((data) => {
+          const productsContainer = document.getElementById("products");
+
+          // Iterar sobre los productos recibidos y mostrarlos en el HTML
+          data.forEach((product) => {
+            const productCard = `
+                        <div class="product-card">
+                            <img src="${product.fotografia}" alt="${product.nombre}">
+                            <h2>${product.nombre}</h2>
+                            <p>Precio: $${product.precio}</p>
+                            <p>Stock: ${product.stock}</p>
+                            <p>Categoría: ${product.categoria}</p>
+                            <p>Marca: ${product.marca}</p>
+                            <p>Descripción: ${product.descripcionCorta}</p>
+                        </div>
+                    `;
+            productsContainer.innerHTML += productCard;
+          });
+        })
+        .catch((error) =>
+          console.error("Error al obtener los productos:", error)
+        );
+    </script>
+  </body>
+</html>
